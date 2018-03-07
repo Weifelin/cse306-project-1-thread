@@ -89,21 +89,49 @@ public class ThreadCB extends IflThreadCB
 
         thread.setTask(task);
 
-        thread.setPriority(1.5*thread.get_total_wait_time() - thread.getTimeOnCPU() - 0.3*thread.getTask().getTimeOnCPU());
+        long taskCPUTime = 0;
+
+        if (!ready_queue.isEmpty() && ready_queue.containsKey(task)){
+            Vector<Sub_threads> v = ready_queue.get(task);
+            for(int i=0; i<v.size(); i++){
+                taskCPUTime += v.get(i).getTimeOnCPU();
+            }
+        }
 
 
         if (task.addThread(thread) == FAILURE){
             return null;
         }
 
-        if (ready_queue.containsKey(task) == false){
+        if (!ready_queue.containsKey(task)){
+
             Vector sub_queue = new Vector<Sub_threads>();
+            thread.setTime_added_to_ready_queue(HClock.get());
+            thread.setTime_removed_from_ready_queue(HClock.get());
+            thread.setPriority((int) (1.5*thread.getTotal_wait_time() - thread.getTimeOnCPU() - 0.3*taskCPUTime));
+
             sub_queue.addElement(thread);
+
             ready_queue.put(task, sub_queue);
         }else {
             Vector sub_queue = ready_queue.get(task);
             if (sub_queue != null){
-                sub_queue.addElement(thread)
+
+                thread.setTime_added_to_ready_queue(HClock.get());
+                thread.setTime_removed_from_ready_queue(HClock.get());
+                thread.setPriority((int) (1.5*thread.getTotal_wait_time() - thread.getTimeOnCPU() - 0.3*taskCPUTime));
+
+                sub_queue.addElement(thread);
+            }else{
+                //should not reach here
+                sub_queue = new Vector<Sub_threads>();
+
+                thread.setTime_added_to_ready_queue(HClock.get());
+                thread.setTime_removed_from_ready_queue(HClock.get());
+                thread.setPriority((int) (1.5*thread.getTotal_wait_time() - thread.getTimeOnCPU() - 0.3*taskCPUTime));
+
+                sub_queue.addElement(thread);
+                ready_queue.put(task, sub_queue);
             }
         }
         //ready_queue.add(thread);
@@ -133,7 +161,7 @@ public class ThreadCB extends IflThreadCB
         // your code goes here
         if (getStatus() == ThreadReady){
 
-            ready_queue.remove(this);
+            ready_queue.remove(this.getTask(), this);
 
         }else if(getStatus() == ThreadRunning){
 
@@ -148,17 +176,17 @@ public class ThreadCB extends IflThreadCB
 
         //cancelling I/O
 
-        for (ing i = 0; i < Device.getTableSize(); i++){
+        for (int i = 0; i < Device.getTableSize(); i++){
             Device.get(i).cancelPendingIO(this);
         }
 
         ResourceCB.giveupResources(this);
 
-        dispatch();
-
         if (getTask().getThreadCount() == 0){
             getTask().kill();
         }
+
+        dispatch();
 
     }
 
@@ -222,15 +250,30 @@ public class ThreadCB extends IflThreadCB
     public void do_resume()
     {
         // your code goes here
-        if (this.getStatus() > ThreadWaiting){
-            this.setStatus(this.getStatus() - 1);
-        }else if (this.getStatus() == ThreadWaiting){
-            this.setStatus(ThreadReady);
-            ready_queue.add()
+
+        Sub_threads thread = (Sub_threads) this;
+        if (thread.getStatus() > ThreadWaiting){
+
+            thread.setStatus(this.getStatus() - 1);
+
+        }else if (thread.getStatus() == ThreadWaiting ){
+            thread.setStatus(ThreadReady);
+            Vector<Sub_threads> v = ready_queue.get(this.getTask());
+
+            thread.setTime_added_to_ready_queue(HClock.get());
+            thread.setTime_removed_from_ready_queue(HClock.get());
+
+            long taskCPUTime = 0;
+
+            for(int i=0; i<v.size(); i++){
+                taskCPUTime += v.get(i).getTimeOnCPU();
+            }
+            thread.setPriority((int) (1.5*thread.getTotal_wait_time() - thread.getTimeOnCPU() - 0.3*taskCPUTime));
+
+            v.addElement((Sub_threads) this);
         }
 
-
-
+        dispatch();
 
     }
 
@@ -250,6 +293,74 @@ public class ThreadCB extends IflThreadCB
     public static int do_dispatch()
     {
         // your code goes here
+        TaskCB currentTask = MMU.getPTBR().getTask();
+        Sub_threads thread = (Sub_threads) currentTask.getCurrentThread();
+        Vector<Sub_threads> v = ready_queue.get(currentTask);
+
+        if(thread != null)
+        {
+            thread.getTask().setCurrentThread(null);
+            MMU.setPTBR(null);
+            thread.setStatus(ThreadReady);
+            if (ready_queue.containsKey(thread.getTask())){
+
+                thread.setTime_added_to_ready_queue(HClock.get());
+                thread.setTime_removed_from_ready_queue(HClock.get());
+
+                long taskCPUTime = 0;
+
+                for(int i=0; i<v.size(); i++){
+                    taskCPUTime += v.get(i).getTimeOnCPU();
+                }
+                thread.setPriority((int) (1.5*thread.getTotal_wait_time() - thread.getTimeOnCPU() - 0.3*taskCPUTime));
+
+
+                ready_queue.get(thread.getTask()).addElement(thread);
+            }
+        }
+
+
+
+        if (!v.isEmpty()){
+
+            long taskCPUTime = 0;
+
+            for(int i=0; i<v.size(); i++){
+                taskCPUTime += v.get(i).getTimeOnCPU();
+            }
+
+            //updating all priority
+            for(int i=0; i<v.size(); i++){
+                Sub_threads t = v.get(i);
+                t.setTime_removed_from_ready_queue(HClock.get());
+                t.setPriority((int) (1.5*t.getTotal_wait_time() - t.getTimeOnCPU() - 0.3*taskCPUTime));
+            }
+
+            Sub_threads new_thread = v.get(0);
+            for(int i = 0; i<v.size(); i++ ){
+                if (new_thread.getPriority() <= v.get(i).getPriority() && new_thread.getStatus() == ThreadReady){
+                    new_thread = v.get(i);
+                }
+            }
+
+            MMU.setPTBR(new_thread.getTask().getPageTable());
+            new_thread.getTask().setCurrentThread(new_thread);
+
+            new_thread.setStatus(ThreadRunning);
+            ready_queue.remove(new_thread.getTask(), new_thread);
+            new_thread.setTime_removed_from_ready_queue(HClock.get());
+
+
+            new_thread.setPriority((int) (1.5*thread.getTotal_wait_time() - thread.getTimeOnCPU() - 0.3*taskCPUTime));
+
+            HTimer.set(100);
+
+            return SUCCESS;
+        }
+
+        MMU.setPTBR(null);
+        return FAILURE;
+
 
     }
 
@@ -285,6 +396,20 @@ public class ThreadCB extends IflThreadCB
        Feel free to add methods/fields to improve the readability of your code
     */
 
+    /*void setPriority(Sub_threads thread){
+        thread.setTime_added_to_ready_queue(HClock.get());
+        thread.setTime_removed_from_ready_queue(HClock.get());
+
+        long taskCPUTime = 0;
+
+        Vector<Sub_threads> v = ready_queue.get(thread.getTask());
+
+        for(int i=0; i<v.size(); i++){
+            taskCPUTime += v.get(i).getTimeOnCPU();
+        }
+        thread.setPriority((int) (1.5*thread.getTotal_wait_time() - thread.getTimeOnCPU() - 0.3*taskCPUTime));
+    }*/
+
 
 
 
@@ -296,31 +421,63 @@ public class ThreadCB extends IflThreadCB
 */
 class Sub_threads extends ThreadCB{
 
-    //private int total_cpu_time;
-    private int total_wait_time;
+    //private long total_cpu_time;
+    private long total_wait_time;
+    //private long previous_waiting_time;
+    //private long previous_cpu_time;
+    private long time_added_to_ready_queue;
+    private long time_removed_from_ready_queue;
+
 
     Sub_threads(){
         super();
-        //total_cpu_time = 0;
+        /*total_cpu_time = 0;
         total_wait_time = 0;
+        previous_cpu_time = this.getTimeOnCPU();
+        previous_waiting_time = 0;*/
+        this.time_added_to_ready_queue = 0;
+        this.time_removed_from_ready_queue = 0;
+        this.total_wait_time = 0;
     }
 
-    /*int get_total_cpu_time(){
-        return total_cpu_time;
-    }*/
+    long getTime_added_to_ready_queue(){
+        return time_added_to_ready_queue;
+    }
 
-    int get_total_wait_time(){
+    long getTime_removed_from_ready_queue(){
+        return time_removed_from_ready_queue;
+    }
+
+    void setTime_added_to_ready_queue(long time_added_to_ready_queue){
+        this.time_added_to_ready_queue = time_added_to_ready_queue;
+    }
+
+    void setTime_removed_from_ready_queue(long time_removed_from_ready_queue){
+        this.time_removed_from_ready_queue = time_removed_from_ready_queue;
+    }
+    long getTotal_wait_time(){
+        total_wait_time = total_wait_time + time_removed_from_ready_queue - time_added_to_ready_queue;
         return total_wait_time;
     }
 
+   /* long get_total_cpu_time(){
+        return total_cpu_time;
+    }*/
+
+    /*long get_total_wait_time(){
+        return total_wait_time;
+    }
+*/
     /*int set_total_cpu_time(int t){
         total_cpu_time = t;
         setTotal_task_CPUTime(getTotal_task_CPUTime()+total_cpu_time);
     }*/
 
-    int set_total_wait_time(int t){
-        total_wait_time = t;
-        this.setPriority(1.5*this.get_total_wait_time() - this.getTimeOnCPU() - 0.3*this.getTask().getTimeOnCPU());
-    }
+    /*void set_total_wait_time(long current_waitingTime){
+        long temp_time = previous_waiting_time;
+        previous_waiting_time = total_wait_time;
+
+        //this.setPriority((int) (1.5*this.get_total_wait_time() - this.getTimeOnCPU() - 0.3*this.getTask().getTimeOnCPU()));
+    }*/
 }
 
