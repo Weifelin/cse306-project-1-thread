@@ -9,18 +9,21 @@ import osp.Hardware.*;
 import osp.Devices.*;
 import osp.Memory.*;
 import osp.Resources.*;
+import java.util.AbstractMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
    This class is responsible for actions related to threads, including
    creating, killing, dispatching, resuming, and suspending threads.
 
-   @OSPProject Threads
+   @OSPProject osp.Threads
 */
 public class ThreadCB extends IflThreadCB 
 {
 
 
-    private static Vector<Sub_threads> ready_queue;
+    //private static Vector<Sub_threads> ready_queue;
+    private static ConcurrentHashMap<TaskCB,Vector> ready_queue;
 
     /**
        The thread constructor. Must call 
@@ -29,7 +32,7 @@ public class ThreadCB extends IflThreadCB
 
        as its first statement.
 
-       @OSPProject Threads
+       @OSPProject osp.Threads
     */
     public ThreadCB()
     {
@@ -42,12 +45,13 @@ public class ThreadCB extends IflThreadCB
        This method will be called once at the beginning of the
        simulation. The student can set up static variables here.
        
-       @OSPProject Threads
+       @OSPProject osp.Threads
     */
     public static void init()
     {
         // your code goes here
         //ready_queue = new Vector<Sub_threads>;
+        ready_queue = new ConcurrentHashMap<TaskCB,Vector>();
 
     }
 
@@ -66,7 +70,7 @@ public class ThreadCB extends IflThreadCB
 
 	@return thread or null
 
-        @OSPProject Threads
+        @OSPProject osp.Threads
     */
     static public ThreadCB do_create(TaskCB task)
     {
@@ -76,7 +80,7 @@ public class ThreadCB extends IflThreadCB
         }
 
         if (task.getThreadCount() > MaxThreadsPerTask){
-            retrun null;
+            return null;
         }
 
         Sub_threads thread = new Sub_threads();
@@ -92,7 +96,17 @@ public class ThreadCB extends IflThreadCB
             return null;
         }
 
-        ready_queue.add(thread);
+        if (ready_queue.containsKey(task) == false){
+            Vector sub_queue = new Vector<Sub_threads>();
+            sub_queue.addElement(thread);
+            ready_queue.put(task, sub_queue);
+        }else {
+            Vector sub_queue = ready_queue.get(task);
+            if (sub_queue != null){
+                sub_queue.addElement(thread)
+            }
+        }
+        //ready_queue.add(thread);
 
         dispatch();
 
@@ -112,7 +126,7 @@ public class ThreadCB extends IflThreadCB
 	thread was running, the processor becomes idle, and dispatch() 
 	must be called to resume a waiting thread.
 	
-	@OSPProject Threads
+	@OSPProject osp.Threads
     */
     public void do_kill()
     {
@@ -162,7 +176,7 @@ public class ThreadCB extends IflThreadCB
 
 	@param event - event on which to suspend this thread.
 
-        @OSPProject Threads
+        @OSPProject osp.Threads
     */
     public void do_suspend(Event event)
     {
@@ -203,14 +217,19 @@ public class ThreadCB extends IflThreadCB
 	decremented, respectively.
 	A ready thread should be placed on the ready queue.
 	
-	@OSPProject Threads
+	@OSPProject osp.Threads
     */
     public void do_resume()
     {
         // your code goes here
-        if (this.getStatus() >= ThreadWaiting){
+        if (this.getStatus() > ThreadWaiting){
             this.setStatus(this.getStatus() - 1);
+        }else if (this.getStatus() == ThreadWaiting){
+            this.setStatus(ThreadReady);
+            ready_queue.add()
         }
+
+
 
 
     }
@@ -226,7 +245,7 @@ public class ThreadCB extends IflThreadCB
 	
 	@return SUCCESS or FAILURE
 
-        @OSPProject Threads
+        @OSPProject osp.Threads
     */
     public static int do_dispatch()
     {
@@ -240,7 +259,7 @@ public class ThreadCB extends IflThreadCB
        their state just after the error happened.  The body can be
        left empty, if this feature is not used.
 
-       @OSPProject Threads
+       @OSPProject osp.Threads
     */
     public static void atError()
     {
@@ -253,7 +272,7 @@ public class ThreadCB extends IflThreadCB
         structures in their state just after the warning happened.
         The body can be left empty, if this feature is not used.
        
-        @OSPProject Threads
+        @OSPProject osp.Threads
      */
     public static void atWarning()
     {

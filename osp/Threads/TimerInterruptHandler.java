@@ -8,7 +8,7 @@ import osp.Hardware.*;
        The timer interrupt handler.  This class is called upon to
        handle timer interrupts.
 
-       @OSPProject Threads
+       @OSPProject osp.Threads
 */
 public class TimerInterruptHandler extends IflTimerInterruptHandler
 {
@@ -16,7 +16,7 @@ public class TimerInterruptHandler extends IflTimerInterruptHandler
        This basically only needs to reset the times and dispatch
        another process.
 
-       @OSPProject Threads
+       @OSPProject osp.Threads
     */
     public void do_handleInterrupt()
     {
