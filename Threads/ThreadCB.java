@@ -18,6 +18,10 @@ import osp.Resources.*;
 */
 public class ThreadCB extends IflThreadCB 
 {
+
+
+    private static Vector<Sub_threads> ready_queue;
+
     /**
        The thread constructor. Must call 
 
@@ -30,6 +34,7 @@ public class ThreadCB extends IflThreadCB
     public ThreadCB()
     {
         // your code goes here
+        super();
 
     }
 
@@ -42,6 +47,7 @@ public class ThreadCB extends IflThreadCB
     public static void init()
     {
         // your code goes here
+        //ready_queue = new Vector<Sub_threads>;
 
     }
 
@@ -49,7 +55,7 @@ public class ThreadCB extends IflThreadCB
         Sets up a new thread and adds it to the given task. 
         The method must set the ready status 
         and attempt to add thread to task. If the latter fails 
-        because there are already too many threads in this task, 
+        because there are already too many threads in this task,
         so does this method, otherwise, the thread is appended 
         to the ready queue and dispatch() is called.
 
@@ -65,6 +71,33 @@ public class ThreadCB extends IflThreadCB
     static public ThreadCB do_create(TaskCB task)
     {
         // your code goes here
+        if (task == null){
+            return null;
+        }
+
+        if (task.getThreadCount() > MaxThreadsPerTask){
+            retrun null;
+        }
+
+        Sub_threads thread = new Sub_threads();
+
+        thread.setStatus(ThreadReady);
+
+        thread.setTask(task);
+
+        thread.setPriority(1.5*thread.get_total_wait_time() - thread.getTimeOnCPU() - 0.3*thread.getTask().getTimeOnCPU());
+
+
+        if (task.addThread(thread) == FAILURE){
+            return null;
+        }
+
+        ready_queue.add(thread);
+
+        dispatch();
+
+        return thread;
+
 
     }
 
@@ -84,6 +117,34 @@ public class ThreadCB extends IflThreadCB
     public void do_kill()
     {
         // your code goes here
+        if (getStatus() == ThreadReady){
+
+            ready_queue.remove(this);
+
+        }else if(getStatus() == ThreadRunning){
+
+            if (MMU.getPTBR().getTask().getCurrentThread().getID() == this.getID()){
+                MMU.setPTBR(null);
+                getTask().setCurrentThread(null);
+            }
+
+        }
+
+        setStatus(ThreadKill);
+
+        //cancelling I/O
+
+        for (ing i = 0; i < Device.getTableSize(); i++){
+            Device.get(i).cancelPendingIO(this);
+        }
+
+        ResourceCB.giveupResources(this);
+
+        dispatch();
+
+        if (getTask().getThreadCount() == 0){
+            getTask().kill();
+        }
 
     }
 
@@ -106,6 +167,32 @@ public class ThreadCB extends IflThreadCB
     public void do_suspend(Event event)
     {
         // your code goes here
+        if (this.getStatus() == ThreadRunning){
+
+
+            //context switch
+            if (MMU.getPTBR().getTask().getCurrentThread().getID() == this.getID()){
+                MMU.setPTBR(null);
+                getTask().setCurrentThread(null);
+            }
+
+            this.setStatus(ThreadWaiting);
+            this.getTask().setCurrentThread(null);
+
+        }else if(this.getStatus() >= ThreadKill && this.getStatus() != ThreadReady){
+
+            this.setStatus(this.getStatus()+1);
+        }
+
+        /*if (ready_queue.contains(this) == false){
+            ready_queue.add(this);
+        }*/
+
+
+        event.addThread(this);
+
+        dispatch();
+
 
     }
 
@@ -121,6 +208,10 @@ public class ThreadCB extends IflThreadCB
     public void do_resume()
     {
         // your code goes here
+        if (this.getStatus() >= ThreadWaiting){
+            this.setStatus(this.getStatus() - 1);
+        }
+
 
     }
 
@@ -175,8 +266,42 @@ public class ThreadCB extends IflThreadCB
        Feel free to add methods/fields to improve the readability of your code
     */
 
+
+
+
+
 }
 
 /*
       Feel free to add local classes to improve the readability of your code
 */
+class Sub_threads extends ThreadCB{
+
+    //private int total_cpu_time;
+    private int total_wait_time;
+
+    Sub_threads(){
+        super();
+        //total_cpu_time = 0;
+        total_wait_time = 0;
+    }
+
+    /*int get_total_cpu_time(){
+        return total_cpu_time;
+    }*/
+
+    int get_total_wait_time(){
+        return total_wait_time;
+    }
+
+    /*int set_total_cpu_time(int t){
+        total_cpu_time = t;
+        setTotal_task_CPUTime(getTotal_task_CPUTime()+total_cpu_time);
+    }*/
+
+    int set_total_wait_time(int t){
+        total_wait_time = t;
+        this.setPriority(1.5*this.get_total_wait_time() - this.getTimeOnCPU() - 0.3*this.getTask().getTimeOnCPU());
+    }
+}
+
