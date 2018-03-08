@@ -3,9 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="98f99148-638d-4869-a6bd-838d55ca4f19" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/osp/Threads/Misc/params.osp" afterPath="$PROJECT_DIR$/osp/Threads/Misc/params.osp" />
-      <change beforePath="$PROJECT_DIR$/osp/Threads/Misc/wgui.rdl" afterPath="$PROJECT_DIR$/osp/Threads/Misc/wgui.rdl" />
+      <change beforePath="$PROJECT_DIR$/osp/Threads/OSP.log" afterPath="$PROJECT_DIR$/osp/Threads/OSP.log" />
       <change beforePath="$PROJECT_DIR$/osp/Threads/ThreadCB.java" afterPath="$PROJECT_DIR$/osp/Threads/ThreadCB.java" />
+      <change beforePath="$PROJECT_DIR$/osp/Threads/osp/Threads/Sub_threads.class" afterPath="$PROJECT_DIR$/osp/Threads/osp/Threads/Sub_threads.class" />
+      <change beforePath="$PROJECT_DIR$/osp/Threads/osp/Threads/ThreadCB.class" afterPath="$PROJECT_DIR$/osp/Threads/osp/Threads/ThreadCB.class" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,15 +33,15 @@
       <file leaf-file-name="ThreadCB.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/osp/Threads/ThreadCB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="167">
-              <caret line="421" column="13" lean-forward="true" selection-start-line="421" selection-start-column="13" selection-end-line="421" selection-end-column="13" />
+            <state relative-caret-position="-3012">
+              <caret line="358" column="51" lean-forward="false" selection-start-line="358" selection-start-column="51" selection-end-line="358" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-                <element signature="e#15592#15593#0" expanded="true" />
-                <element signature="e#15640#15641#0" expanded="true" />
-                <element signature="e#15686#15687#0" expanded="true" />
-                <element signature="e#15738#15739#0" expanded="true" />
+                <element signature="e#16318#16319#0" expanded="true" />
+                <element signature="e#16366#16367#0" expanded="true" />
+                <element signature="e#16412#16413#0" expanded="true" />
+                <element signature="e#16464#16465#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -49,8 +50,8 @@
       <file leaf-file-name="OSP.log" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/osp/Threads/OSP.log">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1425">
-              <caret line="95" column="27" lean-forward="true" selection-start-line="95" selection-start-column="27" selection-end-line="95" selection-end-column="27" />
+            <state relative-caret-position="1017">
+              <caret line="92" column="55" lean-forward="true" selection-start-line="92" selection-start-column="55" selection-end-line="92" selection-end-column="55" />
               <folding />
             </state>
           </provider>
@@ -62,8 +63,9 @@
     <findStrings>
       <find>setPTBR</find>
       <find>setCurrentThread</find>
-      <find>ready_queue.put</find>
       <find>kill</find>
+      <find>ready_queue.put</find>
+      <find>RD</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -272,7 +274,7 @@
       <workItem from="1518651369071" duration="60000" />
       <workItem from="1520275360578" duration="560000" />
       <workItem from="1520276589222" duration="32257000" />
-      <workItem from="1520462663953" duration="17558000" />
+      <workItem from="1520462663953" duration="19575000" />
     </task>
     <task id="LOCAL-00001" summary="directory fixed">
       <created>1520449375400</created>
@@ -285,7 +287,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="50456000" />
+    <option name="totallyTimeSpent" value="52473000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -354,10 +356,10 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-            <element signature="e#15592#15593#0" expanded="true" />
-            <element signature="e#15640#15641#0" expanded="true" />
-            <element signature="e#15686#15687#0" expanded="true" />
-            <element signature="e#15738#15739#0" expanded="true" />
+            <element signature="e#16318#16319#0" expanded="true" />
+            <element signature="e#16366#16367#0" expanded="true" />
+            <element signature="e#16412#16413#0" expanded="true" />
+            <element signature="e#16464#16465#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -396,10 +398,10 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-            <element signature="e#15592#15593#0" expanded="true" />
-            <element signature="e#15640#15641#0" expanded="true" />
-            <element signature="e#15686#15687#0" expanded="true" />
-            <element signature="e#15738#15739#0" expanded="true" />
+            <element signature="e#16318#16319#0" expanded="true" />
+            <element signature="e#16366#16367#0" expanded="true" />
+            <element signature="e#16412#16413#0" expanded="true" />
+            <element signature="e#16464#16465#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -459,23 +461,23 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/osp/Threads/OSP.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1425">
-          <caret line="95" column="27" lean-forward="true" selection-start-line="95" selection-start-column="27" selection-end-line="95" selection-end-column="27" />
+        <state relative-caret-position="1017">
+          <caret line="92" column="55" lean-forward="true" selection-start-line="92" selection-start-column="55" selection-end-line="92" selection-end-column="55" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/osp/Threads/ThreadCB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="421" column="13" lean-forward="true" selection-start-line="421" selection-start-column="13" selection-end-line="421" selection-end-column="13" />
+        <state relative-caret-position="-3012">
+          <caret line="358" column="51" lean-forward="false" selection-start-line="358" selection-start-column="51" selection-end-line="358" selection-end-column="51" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-            <element signature="e#15592#15593#0" expanded="true" />
-            <element signature="e#15640#15641#0" expanded="true" />
-            <element signature="e#15686#15687#0" expanded="true" />
-            <element signature="e#15738#15739#0" expanded="true" />
+            <element signature="e#16318#16319#0" expanded="true" />
+            <element signature="e#16366#16367#0" expanded="true" />
+            <element signature="e#16412#16413#0" expanded="true" />
+            <element signature="e#16464#16465#0" expanded="true" />
           </folding>
         </state>
       </provider>
