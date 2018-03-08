@@ -1,3 +1,7 @@
+/**
+ * @Author Weifeng Lin
+ * @StudentID 110161112
+ */
 package osp.Threads;
 
 import osp.IFLModules.*;

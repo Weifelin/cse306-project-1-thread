@@ -1,3 +1,7 @@
+/**
+ * @Author Weifeng Lin
+ * @StudentID 110161112
+ */
 package osp.Threads;
 import java.util.Comparator;
 import java.util.Vector;
