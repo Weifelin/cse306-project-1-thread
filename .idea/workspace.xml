@@ -5,7 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/osp/Threads/OSP.log" afterPath="$PROJECT_DIR$/osp/Threads/OSP.log" />
       <change beforePath="$PROJECT_DIR$/osp/Threads/ThreadCB.java" afterPath="$PROJECT_DIR$/osp/Threads/ThreadCB.java" />
-      <change beforePath="$PROJECT_DIR$/osp/Threads/osp/Threads/Sub_threads.class" afterPath="$PROJECT_DIR$/osp/Threads/osp/Threads/Sub_threads.class" />
+      <change beforePath="$PROJECT_DIR$/osp/Threads/osp/Threads/Sub_threads.class" afterPath="" />
       <change beforePath="$PROJECT_DIR$/osp/Threads/osp/Threads/ThreadCB.class" afterPath="$PROJECT_DIR$/osp/Threads/osp/Threads/ThreadCB.class" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +20,8 @@
       <file leaf-file-name="TimerInterruptHandler.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/osp/Threads/TimerInterruptHandler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+            <state relative-caret-position="285">
+              <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;class#TimerInterruptHandler#0" expanded="false" />
@@ -33,26 +33,12 @@
       <file leaf-file-name="ThreadCB.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/osp/Threads/ThreadCB.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3012">
-              <caret line="358" column="51" lean-forward="false" selection-start-line="358" selection-start-column="51" selection-end-line="358" selection-end-column="51" />
+            <state relative-caret-position="491">
+              <caret line="475" column="13" lean-forward="false" selection-start-line="475" selection-start-column="13" selection-end-line="475" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-                <element signature="e#16318#16319#0" expanded="true" />
-                <element signature="e#16366#16367#0" expanded="true" />
-                <element signature="e#16412#16413#0" expanded="true" />
-                <element signature="e#16464#16465#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="OSP.log" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/osp/Threads/OSP.log">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1017">
-              <caret line="92" column="55" lean-forward="true" selection-start-line="92" selection-start-column="55" selection-end-line="92" selection-end-column="55" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -64,8 +50,23 @@
       <find>setPTBR</find>
       <find>setCurrentThread</find>
       <find>kill</find>
-      <find>ready_queue.put</find>
       <find>RD</find>
+      <find>ready_queue.put</find>
+      <find>setTime_added_to_ready_queue</find>
+      <find>task_queue</find>
+      <find>My</find>
+      <find>addElement</find>
+      <find>Vector</find>
+      <find>The queue for current task</find>
+      <find>Thread(11</find>
+      <find>remove</find>
+      <find>should be running</find>
+      <find>Sim: 4442 &lt;&lt;Warning!&gt;&gt; [IFLModules.ThreadCB]</find>
+      <find>Sim: 4442 &lt;&lt;Warning!&gt;&gt;</find>
+      <find>Sim: 7109</find>
+      <find>task queue</find>
+      <find>warning</find>
+      <find>do_handlePageFault</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -82,6 +83,7 @@
         <option value="$PROJECT_DIR$/Threads/TimerInterruptHandler.java" />
         <option value="$PROJECT_DIR$/Threads/ThreadCB.java" />
         <option value="$PROJECT_DIR$/osp/Threads/TimerInterruptHandler.java" />
+        <option value="$PROJECT_DIR$/osp/Threads/OSP.log" />
         <option value="$PROJECT_DIR$/osp/Threads/ThreadCB.java" />
       </list>
     </option>
@@ -274,7 +276,7 @@
       <workItem from="1518651369071" duration="60000" />
       <workItem from="1520275360578" duration="560000" />
       <workItem from="1520276589222" duration="32257000" />
-      <workItem from="1520462663953" duration="19575000" />
+      <workItem from="1520462663953" duration="33255000" />
     </task>
     <task id="LOCAL-00001" summary="directory fixed">
       <created>1520449375400</created>
@@ -287,7 +289,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52473000" />
+    <option name="totallyTimeSpent" value="66153000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
@@ -307,6 +309,7 @@
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24305555" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -318,7 +321,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32889965" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,10 +358,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-            <element signature="e#16318#16319#0" expanded="true" />
-            <element signature="e#16366#16367#0" expanded="true" />
-            <element signature="e#16412#16413#0" expanded="true" />
-            <element signature="e#16464#16465#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -398,10 +396,6 @@
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-            <element signature="e#16318#16319#0" expanded="true" />
-            <element signature="e#16366#16367#0" expanded="true" />
-            <element signature="e#16412#16413#0" expanded="true" />
-            <element signature="e#16464#16465#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -450,8 +444,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/osp/Threads/TimerInterruptHandler.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="23" column="28" lean-forward="false" selection-start-line="23" selection-start-column="28" selection-end-line="23" selection-end-column="28" />
+        <state relative-caret-position="285">
+          <caret line="24" column="0" lean-forward="false" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;class#TimerInterruptHandler#0" expanded="false" />
@@ -461,23 +455,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/osp/Threads/OSP.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1017">
-          <caret line="92" column="55" lean-forward="true" selection-start-line="92" selection-start-column="55" selection-end-line="92" selection-end-column="55" />
+        <state relative-caret-position="249">
+          <caret line="183521" column="30" lean-forward="false" selection-start-line="183521" selection-start-column="12" selection-end-line="183521" selection-end-column="30" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/osp/Threads/ThreadCB.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3012">
-          <caret line="358" column="51" lean-forward="false" selection-start-line="358" selection-start-column="51" selection-end-line="358" selection-end-column="51" />
+        <state relative-caret-position="491">
+          <caret line="475" column="13" lean-forward="false" selection-start-line="475" selection-start-column="13" selection-end-line="475" selection-end-column="13" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="docComment;method#do_suspend#0;class#ThreadCB#0" expanded="false" />
-            <element signature="e#16318#16319#0" expanded="true" />
-            <element signature="e#16366#16367#0" expanded="true" />
-            <element signature="e#16412#16413#0" expanded="true" />
-            <element signature="e#16464#16465#0" expanded="true" />
           </folding>
         </state>
       </provider>
