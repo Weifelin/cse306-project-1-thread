@@ -32,7 +32,7 @@ ListDirPercentage 50
 AverageNumberOfTasks 4
 MaxTasks 6
 
-[osp.Threads]
+[Threads]
 ThreadLifeExpectancy 5000
 AverageNumberOfThreads 13
 MaxThreadsPerTask 15
